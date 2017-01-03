@@ -1,0 +1,26 @@
+
+.m-title{
+    margin-left: 10px;
+
+}
+.m-head{
+    margin-left: 10px;
+}
+.m-content .m-body .c-item{
+    width: 120px;
+    margin: 0 10px 20px;
+    float: left;
+}
+.m-body .c-item .name{
+    font-size: 13px;
+    line-height: 2.0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+.m-body .c-item .btn{
+    border-radius: 15px;
+    padding: 0 30px;
+    cursor: pointer;
+}
