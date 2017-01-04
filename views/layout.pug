@@ -1,0 +1,10 @@
+doctype html
+html
+    head(lang='en')
+        meta(charset='utf-8')
+        title #{title}
+        include ./includes/head.pug
+    body
+        div(class='g-content')
+            include ./includes/header.pug
+            block content

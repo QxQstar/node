@@ -1,0 +1,22 @@
+extends ../layout.pug
+block content
+    div(class='m-handle')
+        h2(class='m-head') 详情页面
+        div(class='f-clearfix')
+            div(class='c-view f-float-l')
+                embed(src=movie.flash,
+                allowFullScreen='true',
+                quality='high',
+                width='300',
+                height='200',
+                align='center',
+                type='application/x-shockwave-flash')
+            ul(class='m-brif f-float-l')
+                li 电影名称：#{movie.title}
+                li 导演：#{movie.doctor}
+                li 所属国家：#{movie.country}
+                li 语言：#{movie.language}
+                li 上映年份：#{movie.year}
+    div(class='m-detail')
+        h2(class='m-head') 电影简介
+        p= movie.summary

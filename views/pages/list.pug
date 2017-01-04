@@ -1,0 +1,27 @@
+extends ../layout.pug
+block content
+    div(class='m-content')
+                h2(class='m-head') 综合列表页
+                table(class='m-list')
+                    tr(class='head')
+                        th(class='colName') 电影名字
+                        th(class='doctor') 导演
+                        th(class='country') 国家
+                        th(class='startTime') 上映时间
+                        //- th(class='addTime') 录入时间
+                        th(class='colLook') 查看
+                        th(class='colUpdate') 更新
+                        th(class='colDelete') 删除
+                    each item in list
+                        tr
+                            th(class='colName')= item.title
+                            th(class='doctor')= item.doctor
+                            th(class='country')= item.country
+                            th(class='startTime')= item.year
+                            //- th(class='addTime')= moment(item.meta.createdAt).format('MM/DD/YYY')
+                            td(class='colLook')
+                                a(href='../movie/'+item._id,target='_blank') 查看
+                            td(class='colUpdate')
+                                a(href='../admin/updata/'+item_id,target='_blank') 更新
+                            td(class='colDelete')
+                                button(type='button',data-id=item_id) 删除

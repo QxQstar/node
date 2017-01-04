@@ -1,0 +1,32 @@
+extends ../layout.pug
+block content
+    div(class='m-form')
+                h2(class='m-head') 后台录入页
+                form(class='form',name='message',method='post',action='/admin/movie/new')
+                    ul(class='messageList')
+                        li(class='c-item')
+                            span(class='info') 电影名字:
+                            input(type='text',name='name')
+                        li(class='c-item')
+                            span(class='info') 导演名字:
+                            input(type='text',name='director')
+                        li(class='c-item')
+                            span(class='info') 所属国家:
+                            input(type='text',name='nation')
+                        li(class='c-item')
+                            span(class='info') 语&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;言:
+                            input(type='text',name='lang')
+                        li(class='c-item')
+                            span(class='info') 上映年份:
+                            input(type='text',name='time')
+                        li(class='c-item')
+                            span(class='info') 电影海报:
+                            input(type='text',name='poster')
+                        li(class='c-item')
+                            span(class='info') 播放地址:
+                            input(type='text',name='url')
+                        li(class='c-item')
+                            span(class='info') 电影简介:
+                            input(type='text',name='Intro')
+                        li(class='c-item f-center')
+                            button(type='submit',class='btn') 录入

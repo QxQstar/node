@@ -1,0 +1,89 @@
+/**
+ * Created by star on 2017/1/3.
+ */
+var express = require('express');
+var port = process.env.PORT || 3000;
+var app = express();
+
+app.set('views','views/pages');
+app.set('view engine','pug');
+app.use(express.static('public'));
+app.listen(port,function(){
+    console.log('start listen ' + port + ' port');
+});
+//首页
+app.get('/',function(req,res){
+    res.render('index1',{
+        list:[
+            {
+                _id:1,
+                poster:'/img/test.jpg',
+                title:'那你爱抚你觉得'
+            },
+            {
+                _id:1,
+                poster:'/img/test.jpg',
+                title:'电话费觉得就'
+            },
+            {
+                _id:1,
+                poster:'/img/test.jpg',
+                title:'X战警东风浩荡'
+            },
+            {
+                _id:1,
+                poster:'/img/test.jpg',
+                title:'X战警对方电话'
+            },
+            {
+                _id:1,
+                poster:'/img/test.jpg',
+                title:'X战警都返回对方电话'
+            }
+        ]
+    });
+});
+//详情页
+app.get('/movie/:id',function(req,res){
+    res.render('detail',{
+        movie:{
+            title:'x环境',
+            doctor:'点击放大',
+            country:'美好',
+            language:'页脚',
+            year:'2056-33-4',
+            summary:'大家分开的接口的看法九点多就飞快的大家分开的接口的看法九点多就飞快的大家分开的接口的看法九点多就飞快的大家分开的接口的看法九点多就飞快的大家分开的接口的看法九点多就飞快的大家分开的接口的看法九点多就飞快的'
+        }
+    });
+});
+//后台列表页
+app.get('/admin/list',function(req,res){
+    res.render('list',{
+        list:[
+                {
+                _id:2,
+                title:'放打火机',
+                doctor:'dfd',
+                country:'mei',
+                year:'2018-45-9',
+                meta:{
+                    createdAt:'2018387887'
+                }
+            },
+            {
+                _id:2,
+                title:'放打火机',
+                doctor:'dfd',
+                country:'mei',
+                year:'2018-45-9',
+                meta:{
+                    createdAt:'2018387887'
+                }
+            }
+        ]
+    });
+});
+//后台录入页
+app.get('/admin', function (req, res) {
+    res.render('admin')
+});
