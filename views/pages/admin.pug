@@ -3,30 +3,31 @@ block content
     div(class='m-form')
                 h2(class='m-head') 后台录入页
                 form(class='form',name='message',method='post',action='/admin/movie/new')
+                    input(type='hidden',name='_id',value=movie._id)
                     ul(class='messageList')
                         li(class='c-item')
                             span(class='info') 电影名字:
-                            input(type='text',name='name')
+                            input(type='text',name='title' ,value=movie.title)
                         li(class='c-item')
                             span(class='info') 导演名字:
-                            input(type='text',name='director')
+                            input(type='text',name='director',value=movie.director)
                         li(class='c-item')
                             span(class='info') 所属国家:
-                            input(type='text',name='nation')
+                            input(type='text',name='country',value=movie.country)
                         li(class='c-item')
-                            span(class='info') 语&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;言:
-                            input(type='text',name='lang')
+                            span(class='info') 语&nbsp;&nbsp;言:
+                            input(type='text',name='language',value=movie.language)
                         li(class='c-item')
                             span(class='info') 上映年份:
-                            input(type='text',name='time')
+                            input(type='text',name='year',value=movie.year)
                         li(class='c-item')
                             span(class='info') 电影海报:
-                            input(type='text',name='poster')
+                            input(type='text',name='poster',value=movie.poster)
                         li(class='c-item')
                             span(class='info') 播放地址:
-                            input(type='text',name='url')
+                            input(type='text',name='flash',value=movie.flash)
                         li(class='c-item')
                             span(class='info') 电影简介:
-                            input(type='text',name='Intro')
+                            input(type='text',name='summary',value=movie.summary)
                         li(class='c-item f-center')
                             button(type='submit',class='btn') 录入

@@ -3,87 +3,116 @@
  */
 var express = require('express');
 var port = process.env.PORT || 3000;
-var app = express();
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var _ = require('underscore');
+var modelMovie = require('./models/movie.js');
+mongoose.connect('mongodb://localhost/imooc');
 
+var app = express();
+app.locals.moment = require('moment');
 app.set('views','views/pages');
 app.set('view engine','pug');
 app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
+
 app.listen(port,function(){
     console.log('start listen ' + port + ' port');
 });
 //首页
 app.get('/',function(req,res){
-    res.render('index1',{
-        list:[
-            {
-                _id:1,
-                poster:'/img/test.jpg',
-                title:'那你爱抚你觉得'
-            },
-            {
-                _id:1,
-                poster:'/img/test.jpg',
-                title:'电话费觉得就'
-            },
-            {
-                _id:1,
-                poster:'/img/test.jpg',
-                title:'X战警东风浩荡'
-            },
-            {
-                _id:1,
-                poster:'/img/test.jpg',
-                title:'X战警对方电话'
-            },
-            {
-                _id:1,
-                poster:'/img/test.jpg',
-                title:'X战警都返回对方电话'
-            }
-        ]
+    modelMovie.fetch(function(err,movies){
+        if(err){
+            console.log(err);
+        }
+        res.render('index',{
+            list:movies
+        });
     });
 });
 //详情页
 app.get('/movie/:id',function(req,res){
-    res.render('detail',{
-        movie:{
-            title:'x环境',
-            doctor:'点击放大',
-            country:'美好',
-            language:'页脚',
-            year:'2056-33-4',
-            summary:'大家分开的接口的看法九点多就飞快的大家分开的接口的看法九点多就飞快的大家分开的接口的看法九点多就飞快的大家分开的接口的看法九点多就飞快的大家分开的接口的看法九点多就飞快的大家分开的接口的看法九点多就飞快的'
-        }
+    var id = req.params.id;
+    modelMovie.findById(id,function(err,movie){
+        res.render('detail',{
+            movie:movie
+        });
     });
+
 });
 //后台列表页
 app.get('/admin/list',function(req,res){
-    res.render('list',{
-        list:[
-                {
-                _id:2,
-                title:'放打火机',
-                doctor:'dfd',
-                country:'mei',
-                year:'2018-45-9',
-                meta:{
-                    createdAt:'2018387887'
-                }
-            },
-            {
-                _id:2,
-                title:'放打火机',
-                doctor:'dfd',
-                country:'mei',
-                year:'2018-45-9',
-                meta:{
-                    createdAt:'2018387887'
-                }
-            }
-        ]
+    modelMovie.fetch(function(err,list){
+        if(err){
+            console.log(err);
+        }
+        res.render('list',{
+            list:list
+        });
     });
 });
 //后台录入页
-app.get('/admin', function (req, res) {
-    res.render('admin')
+app.get('/admin/movie', function (req, res) {
+    res.render('admin',{
+        movie:{
+            title:"",
+            doctor:"",
+            country:"",
+            language:"",
+            year:'',
+            poster:'',
+            flash:'',
+            summary:''
+        }
+    })
+});
+app.get('/admin/updata/:id',function(req,res){
+    var id = req.params.id;
+    if(id) {
+        modelMovie.findById({_id: id}, function (err, movie) {
+            if (err) {
+                console.log(err);
+            }
+            res.render('admin',{
+                movie:movie
+            });
+        });
+    }
+});
+app.post('/admin/movie/new',function(req,res){
+    var id  = req.body._id;
+    var movieObj = req.body;
+    var _movie;
+    //如果该电影已经存储到数据库了，进行更新
+    if(id !== ''){
+        modelMovie.findById(id,function(err,movie){
+            if(err){
+                console.log(err);
+            }
+            _movie = _.extend(movie,movieObj);
+            _movie.save(function(err,movie){
+                if(err){
+                    console.log(err);
+                }
+                res.redirect('/movie/' + movie._id);
+            });
+        });
+    }else{
+        _movie = new modelMovie({
+            "title":movieObj.title,
+            "director":movieObj.director,
+            "country":movieObj.country,
+            "language":movieObj.language,
+            "year":movieObj.year,
+            "poster":movieObj.poster,
+            "flash":movieObj.flash,
+            "summary":movieObj.summary
+        });
+        _movie.save(function(err,movie){
+            if(!err){
+                res.redirect('/movie/' + movie._id);
+            }
+        });
+    }
 });

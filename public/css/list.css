@@ -14,13 +14,17 @@
     background-color: #999999;
 }
 
-.m-list .colName{
-    width: 70%;
+.m-list .colName,
+.m-list .doctor,
+.m-list .country,
+.m-list .startTime,
+.m-list .addTime{
+    width: 17%;
 }
 .m-list .colLook,
 .m-list .colUpdate,
 .m-list .colDelete{
-    width: 10%;
+    width: 5%;
     text-align: center;
 
 }
