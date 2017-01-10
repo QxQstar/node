@@ -116,3 +116,19 @@ app.post('/admin/movie/new',function(req,res){
         });
     }
 });
+//删除
+app.delete('/admin/list',function(req,res){
+    var id = req.query.id;
+    if(id){
+        modelMovie.remove({
+            _id:id
+        },function(err,movie){
+            if(err){
+                console.log(err);
+            }else{
+                res.json({status:1});
+            }
+
+        });
+    }
+});
