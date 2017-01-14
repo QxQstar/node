@@ -1,0 +1,22 @@
+extends ../layout.pug
+block content
+    div(class='m-content')
+                h2(class='m-head') 用户列表页
+                table(class='m-list')
+                    tr(class='head')
+                        th(class='colName') 名称
+                        th(class='doctor') 时间
+                        th(class='colLook') 查看
+                        th(class='colUpdate') 更新
+                        th(class='colDelete') 删除
+                    each item in list
+                        tr(class='item-id-'+item._id)
+                            th(class='colName')= item.name
+                            th(class='doctor')= moment(item.meta.updateAt).format('MM/DD/YYY')
+                            td(class='colLook')
+                                a(href='../movie/'+item._id,target='_blank') 查看
+                            td(class='colUpdate')
+                                a(href='../admin/updata/'+item._id,target='_blank') 更新
+                            td(class='colDelete')
+                                button(class='del',type='button',data-id=item._id) 删除
+    //- script(src='/js/main.js')

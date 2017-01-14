@@ -5,6 +5,12 @@
 ul,li{
     list-style: none;
 }
+h1{
+    font-size: 16px;
+}
+h2{
+    font-size: 14px;
+}
 button{
     border: none;
     padding: 0.5em 2em ;
@@ -17,6 +23,9 @@ button:focus{
 a{
     text-decoration: none;
     color: #333333;
+}
+a:focus{
+    outline: none;
 }
 h1{
     color: #333333;
