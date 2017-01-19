@@ -10,7 +10,7 @@ $(function(){
             tr = $target.parents('tr');
             $.ajax({
                 type:'DELETE',
-                url:'/admin/list?id='+id,
+                url:'/admin/movie/list?id='+id,
                 success:function(result){
                     if(result.status === 1){
                         if(tr.length > 0){

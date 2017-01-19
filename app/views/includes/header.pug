@@ -5,7 +5,7 @@ h1(class='m-title f-marBom-40') Imooc 科技小站
             a.navbar-brand('href'='/') Imooc 科技小站
         if user
             p.navbar-text.navbar-right
-                span 欢迎您，#{user}
+                span 欢迎您，#{user.name}
                 span &nbsp;|&nbsp;
                 a.navbar-link(href='/admin/logout') 登出
         else

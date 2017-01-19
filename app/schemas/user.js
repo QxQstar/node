@@ -9,6 +9,15 @@ var schemaUser = new Schema({
         unique:true
     },
     password:String,
+    role:{
+        type:Number,
+        default:0
+    },
+    //普通用户:0
+    //邮箱激活用户:1
+    //信息完备用户:2
+    //管理员：>10
+    //超级管理员：>50
     meta:{
         createAt:{
             type:Date,

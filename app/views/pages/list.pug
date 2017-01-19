@@ -20,9 +20,9 @@ block content
                             th(class='startTime')= item.year
                             th(class='addTime')= moment(item.meta.updateAt).format('MM/DD/YYY')
                             td(class='colLook')
-                                a(href='../movie/'+item._id,target='_blank') 查看
+                                a(href='/movie/'+item._id,target='_blank') 查看
                             td(class='colUpdate')
-                                a(href='../admin/updata/'+item._id,target='_blank') 更新
+                                a(href='/admin/movie/updata/'+item._id,target='_blank') 更新
                             td(class='colDelete')
                                 button(class='del',type='button',data-id=item._id) 删除
     script(src='/js/main.js')

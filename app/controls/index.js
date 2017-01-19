@@ -9,7 +9,7 @@ exports.index = function(req,res){
             console.log(err);
         }
         res.render('index',{
-            title:'科技小站首页',
+            title:'绉戞妧灏忕珯棣栭〉',
             user:req.session.user,
             list:movies
         });

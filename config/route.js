@@ -12,22 +12,24 @@ module.exports = function(app){
     //详情页
     app.get('/movie/:id',Movie.detail);
     //后台列表页
-    app.get('/admin/list',Movie.list);
+    app.get('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.list);
     //后台录入页
-    app.get('/admin/movie',Movie.new);
+    app.get('/admin/movie',User.signinRequired,User.adminRequired,Movie.new);
     //更新
-    app.get('/admin/updata/:id',Movie.update);
+    app.get('/admin/movie/updata/:id',User.signinRequired,User.adminRequired,Movie.update);
     //保存
-    app.post('/admin/movie/new',Movie.save);
+    app.post('/admin/movie/new',User.signinRequired,User.adminRequired,Movie.save);
     //删除电影
-    app.delete('/admin/list',Movie.del);
+    app.delete('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.del);
 
 
     //用户列表页
-    app.get('/admin/userlist',User.list);
+    app.get('/admin/user/list',User.signinRequired,User.adminRequired,User.list);
     //注册
+    app.get('/signup',User.showSignup);
     app.post('/user/signup',User.signup);
     //登录
+    app.get('/signin',User.showSignin);
     app.post('/user/signin',User.signin);
     //登出
     app.get('/admin/logout',User.logout);

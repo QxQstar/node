@@ -3,34 +3,35 @@
  */
 var _ = require('underscore');
 var modelMovie = require('./../models/movie.js');
-//ÏêÇéÒ³
+//è¯¦æƒ…é¡µ
 exports.detail = function(req,res){
     var id = req.params.id;
     modelMovie.findById(id,function(err,movie){
         res.render('detail',{
-            title:'ÏêÇéÒ³',
+            title:'è¯¦æƒ…é¡µ',
             user:req.session.user,
             movie:movie
         });
     });
 };
-//ºóÌ¨ÁĞ±íÒ³
+//åå°åˆ—è¡¨é¡µ
 exports.list = function(req,res){
+
     modelMovie.fetch(function(err,list){
         if(err){
             console.log(err);
         }
         res.render('list',{
-            title:'ºóÌ¨Â¼ÈëÒ³',
+            title:'åå°å½•å…¥é¡µ',
             user:req.session.user,
             list:list
         });
     });
 };
-//ºóÌ¨Â¼ÈëÒ³
+//åå°å½•å…¥é¡µ
 exports.new  = function (req, res) {
     res.render('admin',{
-        title:'ºóÌ¨Â¼ÈëÒ³',
+        title:'åå°å½•å…¥é¡µ',
         user:req.session.user,
         movie:{
             title:"",
@@ -44,7 +45,7 @@ exports.new  = function (req, res) {
         }
     })
 };
-//¸üĞÂ
+//æ›´æ–°
 exports.update = function(req,res){
     var id = req.params.id;
     if(id) {
@@ -58,12 +59,12 @@ exports.update = function(req,res){
         });
     }
 };
-//±£´æ
+//ä¿å­˜
 exports.save = function(req,res){
     var id  = req.body._id;
     var movieObj = req.body;
     var _movie;
-    //Èç¹û¸ÃµçÓ°ÒÑ¾­´æ´¢µ½Êı¾İ¿âÁË£¬½øĞĞ¸üĞÂ
+    //å¦‚æœè¯¥ç”µå½±å·²ç»å­˜å‚¨åˆ°æ•°æ®åº“äº†ï¼Œè¿›è¡Œæ›´æ–°
     if(id !== ''){
         modelMovie.findById(id,function(err,movie){
             if(err){
@@ -95,7 +96,7 @@ exports.save = function(req,res){
         });
     }
 };
-//É¾³ıµçÓ°
+//åˆ é™¤ç”µå½±
 exports.del = function(req,res){
     var id = req.query.id;
     if(id){
