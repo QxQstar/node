@@ -3,14 +3,22 @@
  */
 var _ = require('underscore');
 var modelMovie = require('./../models/movie.js');
+var modelComment = require('./../models/comment.js');
 //详情页
 exports.detail = function(req,res){
     var id = req.params.id;
     modelMovie.findById(id,function(err,movie){
-        res.render('detail',{
-            title:'详情页',
-            user:req.session.user,
-            movie:movie
+        modelComment
+            .find({movie:id})
+            .populate('from','name')
+            .populate('reply.from reply.to','name')
+            .exec(function(err,comments){
+            res.render('detail',{
+                title:'详情页',
+                user:req.session.user,
+                movie:movie,
+                comments:comments
+            });
         });
     });
 };

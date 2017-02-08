@@ -77,7 +77,7 @@ exports.showSignin = function(req,res){
         user:req.session.user
     });
 };
-//显示显示表单
+//显示注册表单
 exports.showSignup = function(req,res){
     res.render('signup',{
         user:req.session.user

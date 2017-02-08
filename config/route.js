@@ -4,6 +4,7 @@
 var Index = require('./../app/controls/index.js');
 var User = require('./../app/controls/user.js');
 var Movie = require('./../app/controls/movie.js');
+var Comment = require('./../app/controls/comment.js');
 module.exports = function(app){
     //首页
     app.get('/',Index.index);
@@ -33,4 +34,7 @@ module.exports = function(app){
     app.post('/user/signin',User.signin);
     //登出
     app.get('/admin/logout',User.logout);
+
+    //评价
+    app.post('/user/comment',User.signinRequired,Comment.save);
 };
