@@ -8,24 +8,31 @@ var modelComment = require('./../models/comment.js');
 //详情页
 exports.detail = function(req,res){
     var id = req.params.id;
-    modelMovie.findById(id,function(err,movie){
-        modelComment
-            .find({movie:id})
-            .populate('from','name')
-            .populate('reply.from reply.to','name')
-            .exec(function(err,comments){
-            res.render('detail',{
-                title:'详情页',
-                user:req.session.user,
-                movie:movie,
-                comments:comments
-            });
-        });
+    modelMovie
+        .findById(id,function(err,movie){
+            modelCatetory
+                .findById(movie.catetory,function(err,catetory){
+                    var type = {
+                        type:catetory.name
+                    };
+                    modelComment
+                        .find({movie:id})
+                        .populate('from','name')
+                        .populate('reply.from reply.to','name')
+                        .exec(function(err,comments){
+                            res.render('detail',{
+                                title:'详情页',
+                                user:req.session.user,
+                                movie: _.extend(movie,type),
+                                comments:comments
+                            });
+                        });
+                });
+
     });
 };
 //后台列表页
 exports.list = function(req,res){
-
     modelMovie.fetch(function(err,list){
         if(err){
             console.log(err);
@@ -109,8 +116,7 @@ exports.save = function(req,res){
             "year":movieObj.year,
             "poster":movieObj.poster,
             "flash":movieObj.flash,
-            "summary":movieObj.summary,
-            "catetory":movieObj.catetory
+            "summary":movieObj.summary
         });
         var catetoryId = movieObj.catetory;
 
@@ -118,15 +124,40 @@ exports.save = function(req,res){
             if(err){
                 console.log(err);
             }
-            modelCatetory.findById(catetoryId,function(err,catetory){
-                if(err){
-                    console.log(err);
-                }
-                catetory.movies.push(movie._id);
-                catetory.save(function(err,catetory){
-                    res.redirect('/movie/' + movie._id);
+            if(catetoryId) {
+                movie.catetory = catetoryId;
+                movie.save();
+                modelCatetory.findById(catetoryId, function (err, catetory) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    catetory.movies.push(movie._id);
+                    catetory.save(function (err, catetory) {
+                        if(err){
+                            console.log(err);
+                        }
+                        res.redirect('/movie/' + movie._id);
+                    });
                 });
-            });
+            }else if(movieObj.catetoryName){
+                var catetory = new modelCatetory({
+                    name:movieObj.catetoryName,
+                    movies:[movie._id]
+                });
+                catetory.save(function (err, catetory) {
+                    movie.catetory = catetory._id;
+                    movie.save(err,function(err,movie){
+                        if(err){
+                            console.log(err);
+                        }
+                        res.redirect('/movie/' + movie._id);
+                    });
+
+                });
+
+            }else{
+
+            }
 
         });
     }

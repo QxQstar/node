@@ -19,6 +19,10 @@
     text-overflow: ellipsis;
     cursor: pointer;
 }
+.m-body .c-item img{
+    width: 120px;
+    height: 120px;
+}
 .m-body .c-item .btn{
     border-radius: 15px;
     padding: 0 30px;

@@ -1,45 +1,49 @@
 extends ../layout.pug
 block content
     div(class='m-form')
-                h2(class='m-head') 后台录入页
-                form(class='form',name='message',method='post',action='/admin/movie/new')
-                    if movie._id
-                        input(type='hidden',name='_id',value=movie._id)
-                    ul(class='messageList')
-                        li(class='c-item')
-                            span(class='info') 电影分类:
-                            input(type='text',name='catetoryName' ,value=movie.catetoryName)
-                        li
-                            span(class='info') 分类选择:
-                            each cat in catetories
-                                if movie._id
-                                    input(type='radio',name='catetory',value=cat._id,checked=cat.id.toString()==movie.catetory.toString())
-                                else
-                                    input(type='radio',name='catetory',value=cat._id)
-                                span= cat.name
-                        li(class='c-item')
-                            span(class='info') 电影名字:
-                            input(type='text',name='title' ,value=movie.title)
-                        li(class='c-item')
-                            span(class='info') 导演名字:
-                            input(type='text',name='director',value=movie.director)
-                        li(class='c-item')
-                            span(class='info') 所属国家:
-                            input(type='text',name='country',value=movie.country)
-                        li(class='c-item')
-                            span(class='info') 语&nbsp;&nbsp;言:
-                            input(type='text',name='language',value=movie.language)
-                        li(class='c-item')
-                            span(class='info') 上映年份:
-                            input(type='text',name='year',value=movie.year)
-                        li(class='c-item')
-                            span(class='info') 电影海报:
-                            input(type='text',name='poster',value=movie.poster)
-                        li(class='c-item')
-                            span(class='info') 播放地址:
-                            input(type='text',name='flash',value=movie.flash)
-                        li(class='c-item')
-                            span(class='info') 电影简介:
-                            input(type='text',name='summary',value=movie.summary)
-                        li(class='c-item f-center')
-                            button(type='submit',class='btn') 录入
+        h2(class='m-head')= title
+        form(class='form',name='message',method='post',action='/admin/movie/new')
+            if movie._id
+                input(type='hidden',name='_id',value=movie._id)
+            ul(class='messageList')
+                li(class='c-item')
+                    span(class='info') 豆瓣同步
+                    input(type='text',id='douban')
+                li(class='c-item')
+                    span(class='info') 电影分类:
+                    input(type='text',name='catetoryName' ,value=movie.catetoryName)
+                li
+                    span(class='info') 分类选择:
+                    each cat in catetories
+                        if movie._id
+                            input(type='radio',name='catetory',value=cat._id,checked=cat.id.toString()==movie.catetory.toString())
+                        else
+                            input(type='radio',name='catetory',value=cat._id)
+                        span= cat.name
+                li(class='c-item')
+                    span(class='info') 电影名字:
+                    input(type='text',name='title' ,value=movie.title,id='movieName')
+                li(class='c-item')
+                    span(class='info') 导演名字:
+                    input(type='text',name='director',value=movie.director,id='directorName')
+                li(class='c-item')
+                    span(class='info') 所属国家:
+                    input(type='text',name='country',value=movie.country,id='makeCountry')
+                li(class='c-item')
+                    span(class='info') 语&nbsp;&nbsp;言:
+                    input(type='text',name='language',value=movie.language,id='lang')
+                li(class='c-item')
+                    span(class='info') 上映年份:
+                    input(type='text',name='year',value=movie.year,id='time')
+                li(class='c-item')
+                    span(class='info') 电影海报:
+                    input(type='text',name='poster',value=movie.poster,id='pic')
+                li(class='c-item')
+                    span(class='info') 播放地址:
+                    input(type='text',name='flash',value=movie.flash,id='flashAddr')
+                li(class='c-item')
+                    span(class='info') 电影简介:
+                    input(type='text',name='summary',value=movie.summary,id='brief')
+                li(class='c-item f-center')
+                    button(type='submit',class='btn') 录入
+    script(src='/js/main.js')
