@@ -3,8 +3,20 @@ block content
     div(class='m-form')
                 h2(class='m-head') 后台录入页
                 form(class='form',name='message',method='post',action='/admin/movie/new')
-                    input(type='hidden',name='_id',value=movie._id)
+                    if movie._id
+                        input(type='hidden',name='_id',value=movie._id)
                     ul(class='messageList')
+                        li(class='c-item')
+                            span(class='info') 电影分类:
+                            input(type='text',name='catetoryName' ,value=movie.catetoryName)
+                        li
+                            span(class='info') 分类选择:
+                            each cat in catetories
+                                if movie._id
+                                    input(type='radio',name='catetory',value=cat._id,checked=cat.id.toString()==movie.catetory.toString())
+                                else
+                                    input(type='radio',name='catetory',value=cat._id)
+                                span= cat.name
                         li(class='c-item')
                             span(class='info') 电影名字:
                             input(type='text',name='title' ,value=movie.title)

@@ -98,9 +98,10 @@ exports.signinRequired = function(req,res,next){
 };
 //判断权限
 exports.adminRequired = function(req,res,next){
-    if(req.session.user.role > 10){
-        next()
-    }else{
-        res.redirect('/signin');
-    }
+    //if(req.session.user.role > 10){
+    //    next()
+    //}else{
+    //    res.redirect('/signin');
+    //}
+    next()
 };

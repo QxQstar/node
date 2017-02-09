@@ -1,12 +1,18 @@
 extends ../layout.pug
 block content
     div(class='m-content')
-                h2(class='m-head') 电影列表
-                ul(class='m-body')
-                    each item in list
-                        li(class='c-item')
-                            a(href='/movie/'+item._id)
-                                img(src=item.poster,alt=item.title)
-                                p(class='name f-center',title=item.title)=item.title
-                                p(class='handle f-center')
-                                    a(class='btn',href='/movie/'+item._id) 播放
+        h2(class='m-head') 电影列表
+        ul(class='m-body')
+            each cat in catetories
+                .panel.panel-default
+                    .panel-heading
+                        h3= cat.name
+                    .panel-body
+                        if cat.movies && cat.movies.length > 0
+                            each item in cat.movies
+                                li(class='c-item')
+                                    a(href='/movie/'+item._id)
+                                        img(src=item.poster,alt=item.title)
+                                        p(class='name f-center',title=item.title)=item.title
+                                        p(class='handle f-center')
+                                            a(class='btn',href='/movie/'+item._id) 播放

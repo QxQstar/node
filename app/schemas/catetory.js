@@ -1,22 +1,15 @@
 /**
- * Created by star on 2017/1/5.
+ * Created by star on 2017/2/9.
  */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
-var schemaMovie = new Schema({
-    title:String,
-    director:String,
-    country:String,
-    language:String,
-    year:Number,
-    poster:String,
-    flash:String,
-    summary:String,
-    catetory:{
+var schemaCatetory = new Schema({
+    name:String,
+    movies:[{
         type:ObjectId,
-        ref:'catetory'
-    },
+        ref:'movie'
+    }],
     meta:{
         createAt:{
             type:Date,
@@ -28,7 +21,7 @@ var schemaMovie = new Schema({
         }
     }
 });
-schemaMovie.pre('save',function(next){
+schemaCatetory.pre('save',function(next){
     if(this.isNew){
         this.meta.createAt = this.meta.updateAt = Date.now();
     }else{
@@ -36,17 +29,17 @@ schemaMovie.pre('save',function(next){
     }
     next();
 });
-schemaMovie.statics = {
+schemaCatetory.statics = {
     fetch:function(cd){
         return this
-                .find({})
-                .sort('meta.updateAt')
-                .exec(cd)
+            .find({})
+            .sort('meta.updateAt')
+            .exec(cd)
     },
     findById:function(id,cd){
         return this
-                .findOne({_id:id})
-                .exec(cd);
+            .findOne({_id:id})
+            .exec(cd);
     }
 };
-module.exports = schemaMovie;
+module.exports = schemaCatetory;

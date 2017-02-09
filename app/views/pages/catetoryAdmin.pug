@@ -1,0 +1,11 @@
+extends ../layout.pug
+block content
+    div(class='m-form')
+        h2(class='m-head')= title
+        form(class='form',name='message',method='post',action='/admin/catetory')
+            ul(class='messageList')
+                li(class='c-item')
+                    span(class='info') 电影分类:
+                    input(type='text',name='name' ,value=catetory.name)
+                li(class='c-item f-center')
+                    button(type='submit',class='btn') 录入

@@ -3,6 +3,7 @@
  */
 var _ = require('underscore');
 var modelMovie = require('./../models/movie.js');
+var modelCatetory = require('./../models/catetory.js');
 var modelComment = require('./../models/comment.js');
 //详情页
 exports.detail = function(req,res){
@@ -30,7 +31,7 @@ exports.list = function(req,res){
             console.log(err);
         }
         res.render('list',{
-            title:'后台录入页',
+            title:'后台电影列表页',
             user:req.session.user,
             list:list
         });
@@ -38,32 +39,45 @@ exports.list = function(req,res){
 };
 //后台录入页
 exports.new  = function (req, res) {
-    res.render('admin',{
-        title:'后台录入页',
-        user:req.session.user,
-        movie:{
-            title:"",
-            doctor:"",
-            country:"",
-            language:"",
-            year:'',
-            poster:'',
-            flash:'',
-            summary:''
+    modelCatetory.find({},function(err,catetories){
+        if(err){
+            console.log(err);
         }
-    })
+        res.render('admin',{
+            title:'后台录入页',
+            user:req.session.user,
+            catetories:catetories,
+            movie:{
+                title:"",
+                doctor:"",
+                country:"",
+                language:"",
+                year:'',
+                poster:'',
+                flash:'',
+                summary:''
+            }
+        });
+    });
+
 };
 //更新
 exports.update = function(req,res){
     var id = req.params.id;
     if(id) {
+
         modelMovie.findById({_id: id}, function (err, movie) {
             if (err) {
                 console.log(err);
             }
-            res.render('admin',{
-                movie:movie
+            modelCatetory.find({},function(err,catetories){
+                res.render('admin',{
+                    title:'更新',
+                    movie:movie,
+                    catetories:catetories
+                });
             });
+
         });
     }
 };
@@ -73,7 +87,7 @@ exports.save = function(req,res){
     var movieObj = req.body;
     var _movie;
     //如果该电影已经存储到数据库了，进行更新
-    if(id !== ''){
+    if(id){
         modelMovie.findById(id,function(err,movie){
             if(err){
                 console.log(err);
@@ -95,12 +109,25 @@ exports.save = function(req,res){
             "year":movieObj.year,
             "poster":movieObj.poster,
             "flash":movieObj.flash,
-            "summary":movieObj.summary
+            "summary":movieObj.summary,
+            "catetory":movieObj.catetory
         });
+        var catetoryId = movieObj.catetory;
+
         _movie.save(function(err,movie){
-            if(!err){
-                res.redirect('/movie/' + movie._id);
+            if(err){
+                console.log(err);
             }
+            modelCatetory.findById(catetoryId,function(err,catetory){
+                if(err){
+                    console.log(err);
+                }
+                catetory.movies.push(movie._id);
+                catetory.save(function(err,catetory){
+                    res.redirect('/movie/' + movie._id);
+                });
+            });
+
         });
     }
 };

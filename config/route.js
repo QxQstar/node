@@ -5,6 +5,7 @@ var Index = require('./../app/controls/index.js');
 var User = require('./../app/controls/user.js');
 var Movie = require('./../app/controls/movie.js');
 var Comment = require('./../app/controls/comment.js');
+var Catetory = require('./../app/controls/catetory.js');
 module.exports = function(app){
     //首页
     app.get('/',Index.index);
@@ -37,4 +38,13 @@ module.exports = function(app){
 
     //评价
     app.post('/user/comment',User.signinRequired,Comment.save);
+
+    //电影分类录入页
+    app.get('/admin/catetory/new',User.signinRequired,User.adminRequired,Catetory.new);
+    //保存
+    app.post('/admin/catetory',User.signinRequired,User.adminRequired,Catetory.save);
+    //电影分类列表页
+    app.get('/admin/catetory/list',User.signinRequired,User.adminRequired,Catetory.list);
+    //电影分类删除
+    app.delete('/admin/catetory/list',User.signinRequired,User.adminRequired,Catetory.del);
 };
