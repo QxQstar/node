@@ -28,3 +28,16 @@
     padding: 0 30px;
     cursor: pointer;
 }
+.search{
+    position: relative;
+    width: 300px;
+    margin:10px 50px 0 30px;
+}
+.search button{
+    position: absolute;
+    width: 50px;
+    right: -50px;
+}
+.search .input-group{
+    width: 100%;
+}

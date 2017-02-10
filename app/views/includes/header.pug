@@ -1,4 +1,11 @@
-h1(class='m-title f-marBom-40') Imooc 科技小站
+.f-clearfix
+    h1(class='m-title f-marBom-40 f-float-l') Imooc 科技小站
+    div(class='search f-float-r')
+        form(method='get',action='/results',class='f-clearfix')
+            .input-group.f-float-r
+                input.form-control(type='text',name='q')
+                button.btn.btn-default(type='submit') 搜索
+
 .navbar.navbar-default.navbar-fixed-bottom
     .container
         .navbar-header

@@ -49,6 +49,9 @@ h2{
 .f-float-l{
     float: left;
 }
+.f-float-r{
+    float: right;
+}
 .f-clearfix:after{
     content: "";
     display: block;
