@@ -9,6 +9,7 @@ block content
                         th(class='country') 国家
                         th(class='startTime') 上映时间
                         th(class='addTime') 录入时间
+                        th(class='colNum') 访问次数
                         th(class='colLook') 查看
                         th(class='colUpdate') 更新
                         th(class='colDelete') 删除
@@ -19,6 +20,7 @@ block content
                             th(class='country')= item.country
                             th(class='startTime')= item.year
                             th(class='addTime')= moment(item.meta.updateAt).format('MM/DD/YYY')
+                            th(class='colNum')= item.pv
                             td(class='colLook')
                                 a(href='/movie/'+item._id,target='_blank') 查看
                             td(class='colUpdate')

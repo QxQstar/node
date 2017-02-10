@@ -5,9 +5,13 @@ var _ = require('underscore');
 var modelMovie = require('./../models/movie.js');
 var modelCatetory = require('./../models/catetory.js');
 var modelComment = require('./../models/comment.js');
+
 //详情页
 exports.detail = function(req,res){
     var id = req.params.id;
+    modelMovie.update({_id:id},{$inc:{pv:1}},function(err){
+        console.log(err);
+    });
     modelMovie
         .findById(id,function(err,movie){
             modelCatetory
@@ -93,6 +97,7 @@ exports.save = function(req,res){
     var id  = req.body._id;
     var movieObj = req.body;
     var _movie;
+
     //如果该电影已经存储到数据库了，进行更新
     if(id){
         modelMovie.findById(id,function(err,movie){
@@ -125,6 +130,7 @@ exports.save = function(req,res){
                 console.log(err);
             }
             if(catetoryId) {
+                console.log('sss',catetoryId);
                 movie.catetory = catetoryId;
                 movie.save();
                 modelCatetory.findById(catetoryId, function (err, catetory) {
@@ -146,7 +152,7 @@ exports.save = function(req,res){
                 });
                 catetory.save(function (err, catetory) {
                     movie.catetory = catetory._id;
-                    movie.save(err,function(err,movie){
+                    movie.save(function(err,movie){
                         if(err){
                             console.log(err);
                         }

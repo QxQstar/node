@@ -18,8 +18,9 @@
 .m-list .doctor,
 .m-list .country,
 .m-list .startTime,
-.m-list .addTime{
-    width: 17%;
+.m-list .addTime,
+.m-list .colNum{
+    width: 14.16%;
 }
 .m-list .colLook,
 .m-list .colUpdate,
