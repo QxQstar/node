@@ -1,0 +1,29 @@
+extends ../layout.pug
+block content
+    div(class='m-content')
+        h2(class='m-head')= title
+        ul(class='m-body')
+            .panel.panel-default
+                .panel-heading
+                    h3= keyword
+                .panel-body
+                    if movies && movies.length > 0
+                        each item in movies
+                            li(class='c-item')
+                                a(href='/movie/'+item._id)
+                                    img(src=item.poster,alt=item.title)
+                                    p(class='name f-center',title=item.title)=item.title
+                                    p(class='handle f-center')
+                                        a(class='btn',href='/movie/'+item._id) 播放
+            ul.pagination
+                - for(var i = 0;i<totalPage;i++){
+                -  if(currPage === i+1){
+                    li.active
+                        span= currPage
+                - }
+                -  else{
+                    li
+                        a(href='/results/?cat='+catId+'&p='+i)= i+1
+                - }
+                - }
+

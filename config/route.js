@@ -47,4 +47,7 @@ module.exports = function(app){
     app.get('/admin/catetory/list',User.signinRequired,User.adminRequired,Catetory.list);
     //电影分类删除
     app.delete('/admin/catetory/list',User.signinRequired,User.adminRequired,Catetory.del);
+
+    //分类的电影列表
+    app.get('/results',Index.search);
 };
